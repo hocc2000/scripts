@@ -1,2 +1,6 @@
 ## For Windows
-Set Script Execution Policy
+Set-ExecutionPolicy set to Bypass
+    Set-ExecutionPolicy Bypass
+
+Set-ExecutionPolicy set to Restricted
+    Set-ExecutionPolicy Restricted
