@@ -1,18 +1,2 @@
-# SCRIPTS
-
-
-
-
-
-
-
-
-
-
-
-
-## TEST
-### TEST
-#### TEST
-##### TEST
-###### TEST
+## For Windows
+#### Set Script Execution Policy
