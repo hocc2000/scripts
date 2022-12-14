@@ -1,9 +1,8 @@
-## For Windows
-Set-ExecutionPolicy set to Bypass
+## How to allow script execution in windows powershell
+The execution policy set to Bypass.
 
     Set-ExecutionPolicy Bypass
 
-Set-ExecutionPolicy set to Restricted
+The execution policy set to default.
 
     Set-ExecutionPolicy Restricted
-    
