@@ -1,2 +1,2 @@
 ## For Windows
-#### Set Script Execution Policy
+Set Script Execution Policy
