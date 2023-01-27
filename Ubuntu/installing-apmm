@@ -1,5 +1,17 @@
 #!/bin/bash
 
+if [ "$0" -eq "--help" ]
+then
+        echo 0
+elif (( $# >= 1 ))
+then
+        echo $#
+else
+        echo A
+fi
+
+exit 0
+
 ##### Installing Apache2
 sudo add-apt-repository ppa:ondrej/apache2 -y
 sudo apt policy | grep "apache2"
