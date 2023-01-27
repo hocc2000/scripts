@@ -12,6 +12,53 @@ usage() {
     exit 0
 }
 
+# Function : Apmm
+apmm() {
+    # Add repository
+    # Apache2
+    sudo add-apt-repository ppa:ondrej/apache2 -y
+    # Mariadb
+    sudo apt install software-properties-common dirmngr apt-transport-https curl -y
+    sudo curl -o /etc/apt/trusted.gpg.d/mariadb_release_signing_key.asc 'https://mariadb.org/mariadb_release_signing_key.asc'
+    sudo sh -c "echo 'deb https://tw1.mirror.blendbyte.net/mariadb/repo/10.10/ubuntu jammy main' >>/etc/apt/sources.list"
+    # Php
+    sudo add-apt-repository ppa:ondrej/php -y
+    sudo apt update
+
+    #Installing
+    # sudo apt policy | grep "apache2"
+    # sudo apt-cache showpkg apache2
+    # sudo apt policy | grep "php"
+    # sudo apt-cache showpkg php8.2
+    # Apache2
+    sudo apt install apache2=2.4.55-1+ubuntu22.04.1+deb.sury.org+2 -y; apachectl -v
+    sudo a2enmod rewrite; a2enmod ssl; systemctl restart apache2;
+    # MariaDB
+    sudo apt install mariadb-server -y
+    # PHP
+    sudo apt install php8.2 -y; php -v;
+    sudo apt install php8.2-{bz2,imagick,imap,intl,gd,mbstring,pspell,curl,readline,xml,xmlrpc,zip,mysql} -y
+    # sudo apt list php8.2-*
+    # Postfix
+    # PHPMyAdmin
+    cd /home; sudo apt install unzip; wget https://files.phpmyadmin.net/phpMyAdmin/5.2.0/phpMyAdmin-5.2.0-all-languages.zip
+    unzip phpMyAdmin*; rm -rf phpMyAdmin*zip; mv phpMyAdmin* phpmyadmin;
+    sudo sed -i "s/$cfg\['blowfish_secret'\] = ''/$cfg\['blowfish_secret'\] = 'sVJWUBG=L4XoCh6xD9=XXlVzjtQfZe0j'/g" /home/phpmyadmin/libraries/config.default.php
+    mkdir /home/phpmyadmin/tmp; chmod 707 /home/phpmyadmin/tmp;
+
+    # Default settings
+    # Apache2
+    sudo sed -i 's/ServerTokens OS/ServerTokens Prod/g' /etc/apache2/conf-enabled/security.conf
+    sudo sed -i 's/ServerSignature On/ServerSignature Off/g' /etc/apache2/conf-enabled/security.conf
+    sudo sed -i 's/Options Indexes FollowSymLinks/\# Options Indexes FollowSymLinks/g' /etc/apache2/apache2.conf
+    sudo sed -i 's/Options FollowSymLinks/\# Options FollowSymLinks/g' /etc/apache2/apache2.conf
+    echo "ServerName localhost" >> /etc/apache2/apache2.conf
+    sudo sed -i'' -r -e "/Listen 443/a\Listen 8080" /etc/apache2/ports.conf
+    mv /var/www/html/index.html /var/www/html/index.php
+    echo '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN"><html><head><title>200 HTTP OK</title></head><body><h1>HTTP OK</h1><p>The http server is running fine.</p></body></html>' > /var/www/html/index.php
+    sudo systemctl restart apache2
+}
+
 # Function : Webmin
 webmin() {
     wget -q http://www.webmin.com/jcameron-key.asc -O- | sudo apt-key add -
@@ -26,56 +73,9 @@ case "$1" in
     esac
 
 
-exit 0
-
-if (( $# >= 1 )); then
-    
-else
-    usage; exit 0;
-fi
-
-exit 0
-
-##### Installing Apache2
-sudo add-apt-repository ppa:ondrej/apache2 -y
-sudo apt policy | grep "apache2"
-sudo apt update; sudo apt upgrade -y
-
-sudo apt-cache showpkg apache2
-sudo apt install apache2=2.4.55-1+ubuntu22.04.1+deb.sury.org+2 -y; apachectl -v
-sudo a2enmod rewrite; a2enmod ssl; systemctl restart apache2;
-
-##### Installing MariaDB
-sudo apt install software-properties-common dirmngr apt-transport-https curl -y
-sudo curl -o /etc/apt/trusted.gpg.d/mariadb_release_signing_key.asc 'https://mariadb.org/mariadb_release_signing_key.asc'
-sudo sh -c "echo 'deb https://tw1.mirror.blendbyte.net/mariadb/repo/10.10/ubuntu jammy main' >>/etc/apt/sources.list"
-sudo apt update; sudo apt upgrade -y
-sudo apt install mariadb-server -y
-
-##### Installing PHP
-sudo add-apt-repository ppa:ondrej/php -y
-sudo apt policy | grep "php"
-sudo apt update; sudo apt upgrade -y
-sudo apt-cache showpkg php8.2
-sudo apt install php8.2 -y; php -v;
-sudo apt list php8.2-*
-sudo apt install php8.2-{bz2,imagick,imap,intl,gd,mbstring,pspell,curl,readline,xml,xmlrpc,zip,mysql} -y
-
-##### Installing Postfix
-
-##### Settings
-sudo sed -i 's/ServerTokens OS/ServerTokens Prod/g' /etc/apache2/conf-enabled/security.conf
-sudo sed -i 's/ServerSignature On/ServerSignature Off/g' /etc/apache2/conf-enabled/security.conf
-sudo sed -i 's/Options Indexes FollowSymLinks/\# Options Indexes FollowSymLinks/g' /etc/apache2/apache2.conf
-sudo sed -i 's/Options FollowSymLinks/\# Options FollowSymLinks/g' /etc/apache2/apache2.conf
-echo "ServerName localhost" >> /etc/apache2/apache2.conf
-sudo sed -i'' -r -e "/Listen 443/a\Listen 8080" /etc/apache2/ports.conf
-sudo systemctl restart apache2
-mv /var/www/html/index.html /var/www/html/index.php
-echo '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN"><html><head><title>200 HTTP OK</title></head><body><h1>HTTP OK</h1><p>The http server is running fine.</p></body></html>' > /var/www/html/index.php
-
-##### Installing PHPMyAdmin
-cd /home; sudo apt install unzip; wget https://files.phpmyadmin.net/phpMyAdmin/5.2.0/phpMyAdmin-5.2.0-all-languages.zip
-unzip phpMyAdmin*; rm -rf phpMyAdmin*zip; mv phpMyAdmin* phpmyadmin;
-sudo sed -i "s/$cfg\['blowfish_secret'\] = ''/$cfg\['blowfish_secret'\] = 'sVJWUBG}L4XoCh6xD9=XXlVzjtQfZe0j'/g" /home/phpmyadmin/libraries/config.default.php
-mkdir /home/phpmyadmin/tmp; chmod 707 /home/phpmyadmin/tmp;
+# exit 0
+# if (( $# >= 1 )); then
+# else
+#     usage; exit 0;
+# fi
+# exit 0
