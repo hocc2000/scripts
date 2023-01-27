@@ -3,7 +3,11 @@
 ##### Function : Help, Usage
 usage() {
     echo "pkgs-installer"
-    echo "Usage: $0 package-name " >&2
+    echo "usage: $0 package-name " >&2
+    echo
+    echo "packages supported:"
+    echo "    apmm - apache, php, mariadb, postfix"
+    echo "    webmin - webmin"
     exit 0
 }
 
