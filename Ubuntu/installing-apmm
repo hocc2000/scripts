@@ -1,6 +1,6 @@
 #!/bin/bash
 
-if [ "$0" == "--help" ]
+if [ "$1" == "--help" ]
 then
         echo 0
 elif (( $# >= 1 ))
