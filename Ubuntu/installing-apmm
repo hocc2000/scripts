@@ -1,11 +1,9 @@
 #!/bin/bash
 
-if [ "$1" == "--help" ]
-then
+if [ "$1" == "--help" ]; then
         echo "Help"
         exit 0
-elif (( $# >= 1 ))
-then
+elif (( $# >= 1 )); then
         echo $#
 else
         echo A
