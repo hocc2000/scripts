@@ -76,10 +76,10 @@ webmin() {
 }
 
 case "$1" in
-        -h|--help) usage; exit 0 ;;
-        webmin) webmin; exit 0 ;;
-        *) usage; exit 0 ;;
-    esac
+    -h|--help) usage; exit 0 ;;
+    webmin) webmin; exit 0 ;;
+    *) usage; exit 0 ;;
+esac
 
 
 # exit 0
