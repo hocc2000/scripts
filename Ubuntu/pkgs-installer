@@ -8,6 +8,7 @@ usage() {
     echo "packages supported:"
     echo "    apmm - apache, php, mariadb, postfix"
     echo "    webmin - webmin"
+    echo
     exit 0
 }
 
