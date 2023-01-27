@@ -1,5 +1,11 @@
 #!/bin/bash
 
+##### Help
+show_help() {
+    echo "Usage: $0 package-name " >&2
+    exit 0
+}
+
 if (( $# == 1 )); then
     case "$1" in
         -h|--help) show_help; exit 0 ;;
@@ -54,9 +60,3 @@ cd /home; sudo apt install unzip; wget https://files.phpmyadmin.net/phpMyAdmin/5
 unzip phpMyAdmin*; rm -rf phpMyAdmin*zip; mv phpMyAdmin* phpmyadmin;
 sudo sed -i "s/$cfg\['blowfish_secret'\] = ''/$cfg\['blowfish_secret'\] = 'sVJWUBG}L4XoCh6xD9=XXlVzjtQfZe0j'/g" /home/phpmyadmin/libraries/config.default.php
 mkdir /home/phpmyadmin/tmp; chmod 707 /home/phpmyadmin/tmp;
-
-##### Help
-show_help() {
-    echo "Usage: $0 package-name " >&2
-    exit 0
-}
