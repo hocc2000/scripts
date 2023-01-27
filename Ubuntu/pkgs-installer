@@ -7,6 +7,7 @@ usage() {
     echo
     echo "packages supported:"
     echo "    apmm - apache, php, mariadb, postfix"
+    echo "    ntp - ntp"
     echo "    webmin - webmin"
     echo
     exit 0
@@ -57,6 +58,14 @@ apmm() {
     mv /var/www/html/index.html /var/www/html/index.php
     echo '<!DOCTYPE HTML PUBLIC "-//IETF//DTD HTML 2.0//EN"><html><head><title>200 HTTP OK</title></head><body><h1>HTTP OK</h1><p>The http server is running fine.</p></body></html>' > /var/www/html/index.php
     sudo systemctl restart apache2
+}
+
+# Function : Ntp
+ntp() {
+    sudo apt install ntp -y
+    sudo systemctl restart ntp
+    sudo ntpq -p
+    sudo timedatectl set-timezone 'Asia/Seoul'
 }
 
 # Function : Webmin
