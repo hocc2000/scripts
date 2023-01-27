@@ -15,6 +15,8 @@ usage() {
 
 # Function : Apmm
 apmm() {
+    echo "1"
+    exit 0
     # Add repository
     # Apache2
     sudo add-apt-repository ppa:ondrej/apache2 -y
@@ -77,6 +79,7 @@ webmin() {
 
 case "$1" in
     -h|--help) usage; exit 0 ;;
+    apmm) apmm; exit 0 ;;
     ntp) ntp; exit 0 ;;
     webmin) webmin; exit 0 ;;
     *) usage; exit 0 ;;
