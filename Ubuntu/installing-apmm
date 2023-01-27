@@ -1,6 +1,12 @@
 #!/bin/bash
 
-if [ "$1" == "--help" ]; then
+
+case "$1" in
+    -h|--help) echo "Help"; exit 0 ;;
+    *) echo "Help"; exit 0 ;;
+esac
+
+if [ "$1" == "-h" ]; then
         echo "Help"
         exit 0
 elif (( $# >= 1 )); then
@@ -54,3 +60,5 @@ cd /home; sudo apt install unzip; wget https://files.phpmyadmin.net/phpMyAdmin/5
 unzip phpMyAdmin*; rm -rf phpMyAdmin*zip; mv phpMyAdmin* phpmyadmin;
 sudo sed -i "s/$cfg\['blowfish_secret'\] = ''/$cfg\['blowfish_secret'\] = 'sVJWUBG}L4XoCh6xD9=XXlVzjtQfZe0j'/g" /home/phpmyadmin/libraries/config.default.php
 mkdir /home/phpmyadmin/tmp; chmod 707 /home/phpmyadmin/tmp;
+
+##### Help
