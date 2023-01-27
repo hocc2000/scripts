@@ -2,11 +2,11 @@
 
 if (( $# == 1 )); then
     case "$1" in
-        -h|--help) Help; exit 0 ;;
-        *) Help; exit 0 ;;
+        -h|--help) show_help; exit 0 ;;
+        *) show_help; exit 0 ;;
     esac
 else
-    Help; exit 0;
+    show_help; exit 0;
 fi
 
 exit 0
@@ -56,7 +56,7 @@ sudo sed -i "s/$cfg\['blowfish_secret'\] = ''/$cfg\['blowfish_secret'\] = 'sVJWU
 mkdir /home/phpmyadmin/tmp; chmod 707 /home/phpmyadmin/tmp;
 
 ##### Help
-Help() {
+show_help() {
     echo "Usage: $0 package-name " >&2
     exit 0
 }
