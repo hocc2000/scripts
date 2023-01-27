@@ -1,6 +1,6 @@
 #!/bin/bash
 
-##### Function : Help, Usage
+# Function : Help, Usage
 usage() {
     echo "pkgs-installer"
     echo "usage: $0 package-name " >&2
@@ -12,8 +12,17 @@ usage() {
     exit 0
 }
 
+# Function : Webmin
+webmin() {
+    wget -q http://www.webmin.com/jcameron-key.asc -O- | sudo apt-key add -
+    sudo add-apt-repository "deb [arch=amd64] http://download.webmin.com/download/repository sarge contrib"
+    sudo apt install webmin -y
+    sudo systemctl status webmin
+}
+
 case "$1" in
         -h|--help) usage; exit 0 ;;
+        webmin) webmin; exit 0 ;;
         *) usage; exit 0 ;;
     esac
 
