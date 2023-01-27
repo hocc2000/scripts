@@ -2,6 +2,7 @@
 
 ##### Function : Help, Usage
 usage() {
+    echo ""
     echo "Usage: $0 package-name " >&2
     exit 0
 }
