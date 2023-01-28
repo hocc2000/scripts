@@ -73,14 +73,20 @@ ntp() {
 
 # Function : Optimize
 optimize() {
-    echo "Please enter your new root password(e.g. Abcd1234$):"
-    sudo passwd root
-    echo
-    echo "Please enter your new hostname(system1):"
-    read hostname
+    #echo "Please enter your new root password(e.g. Abcd1234$): "
+    #sudo passwd root
+    #echo
+    while :
+    do
+        read -p "Please enter your new hostname(system1): " hostname
+        if [ ${#hostname} -gt 2 ]; then
+            break
+        fi
+    done
+    exit 0
     sudo hostnamectl set-hostname $hostname
     echo
-    echo "Update and upgrade your system:"
+    echo "Update and upgrade your system: "
     sudo apt update; sudo apt upgrade -y;
 }
 
