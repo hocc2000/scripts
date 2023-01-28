@@ -8,6 +8,7 @@ usage() {
     echo "packages supported:"
     echo "    apmm - apache, php, mariadb, postfix"
     echo "    ntp - ntp"
+    echo "    optimize - optimize operating system"
     echo "    webmin - webmin"
     echo
     exit 0
@@ -70,6 +71,19 @@ ntp() {
     sudo timedatectl set-timezone 'Asia/Seoul'
 }
 
+# Function : Optimize
+optimize() {
+    echo "Please enter your new root password(e.g. Abcd1234$):"
+    sudo passwd root
+    echo
+    echo "Please enter your new hostname(system1):"
+    read hostname
+    sudo hostnamectl set-hostname $hostname
+    echo
+    echo "Update and upgrade your system:"
+    sudo apt update; sudo apt upgrade -y;
+}
+
 # Function : Webmin
 webmin() {
     wget -q http://www.webmin.com/jcameron-key.asc -O- | sudo apt-key add -
@@ -81,6 +95,7 @@ case "$1" in
     -h|--help) usage; exit 0 ;;
     apmm) apmm; exit 0 ;;
     ntp) ntp; exit 0 ;;
+    optimize) optimize; exit 0 ;;
     webmin) webmin; exit 0 ;;
     *) usage; exit 0 ;;
 esac
