@@ -79,6 +79,7 @@ optimize() {
     while :
     do
         read -p "Please enter your new hostname(system1): " hostname
+        echo ${#hostname}
         if [ ${#hostname} -gt 2 ]; then
             break
         fi
