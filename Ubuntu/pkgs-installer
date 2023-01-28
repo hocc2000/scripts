@@ -7,6 +7,7 @@ usage() {
     echo
     echo "packages supported:"
     echo "    apmm - apache, php, mariadb, postfix"
+    echo "    clear - clear history"
     echo "    ntp - ntp"
     echo "    optimize - optimize operating system"
     echo "    webmin - webmin"
@@ -63,6 +64,11 @@ apmm() {
     sudo systemctl restart apache2
 }
 
+# Function : clear
+clear() {
+    sudo rm -rf .bash_history; history -c;
+}
+
 # Function : Ntp
 ntp() {
     sudo apt install ntp -y
@@ -99,6 +105,7 @@ webmin() {
 case "$1" in
     -h|--help) usage; exit 0 ;;
     apmm) apmm; exit 0 ;;
+    clear) clear; exit 0 ;;
     ntp) ntp; exit 0 ;;
     optimize) optimize; exit 0 ;;
     webmin) webmin; exit 0 ;;
