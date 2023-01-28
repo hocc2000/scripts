@@ -7,7 +7,6 @@ usage() {
     echo
     echo "packages supported:"
     echo "    apmm - apache, php, mariadb, postfix"
-    echo "    clear - clear history"
     echo "    ntp - ntp"
     echo "    optimize - optimize operating system"
     echo "    webmin - webmin"
@@ -64,14 +63,9 @@ apmm() {
     sudo systemctl restart apache2
 }
 
-# Function : clear
-clear() {
-    sudo rm -rf .bash_history
-    history -c
-}
-
 # Function : Ntp
 ntp() {
+    echo "Installing ntp client service..."
     sudo apt install ntp -y
     sudo systemctl restart ntp
     sudo ntpq -p
@@ -80,6 +74,7 @@ ntp() {
 
 # Function : Optimize
 optimize() {
+    echo "Optimize operating system..."
     echo "Please enter your new root password(e.g. Abcd1234$): "
     sudo passwd root
     while :
@@ -98,6 +93,7 @@ optimize() {
 
 # Function : Webmin
 webmin() {
+    echo "Installing webmin service..."
     wget -q http://www.webmin.com/jcameron-key.asc -O- | sudo apt-key add -
     sudo add-apt-repository "deb [arch=amd64] http://download.webmin.com/download/repository sarge contrib"
     sudo apt install webmin -y
@@ -106,7 +102,6 @@ webmin() {
 case "$1" in
     -h|--help) usage; exit 0 ;;
     apmm) apmm; exit 0 ;;
-    clear) clear; exit 0 ;;
     ntp) ntp; exit 0 ;;
     optimize) optimize; exit 0 ;;
     webmin) webmin; exit 0 ;;
