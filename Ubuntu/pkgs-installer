@@ -67,7 +67,7 @@ apmm() {
 # Function : clear
 clear() {
     sudo rm -rf .bash_history
-    sudo history -c
+    history -c
 }
 
 # Function : Ntp
